@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.7.RELEASE")
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '1.5.1.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.hcl.coe.api'
+version = '1.0.0'
+
+description = """api-coe-crud-operation-with-solr"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.1.RELEASE') {
+exclude(module: 'spring-boot-starter-logging')
+    }
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter', version:'1.5.1.RELEASE') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-solr', version:'1.5.1.RELEASE'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.22'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.6.1'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.6.1'
+    compile group: 'org.apache.solr', name: 'solr-solrj', version:'5.5.0'
+    compile(group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.5') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'org.springframework.data', name: 'spring-data-solr', version:'2.0.10.RELEASE'
+    compile group: 'org.springframework.data', name: 'spring-data-commons', version:'1.12.1.RELEASE'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.1.RELEASE') {
+exclude(module: 'commons-logging')
+    }
+}

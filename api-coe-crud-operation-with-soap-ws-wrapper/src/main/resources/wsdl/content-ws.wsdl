@@ -1,0 +1,185 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.cms.api.coe.hcl.com/content-ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.cms.api.coe.hcl.com/content-ws" targetNamespace="http://www.cms.api.coe.hcl.com/content-ws">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.cms.api.coe.hcl.com/content-ws">
+
+	<element name="getContentByPlanIdRequest">
+		<complexType>
+			<sequence>
+				<element name="planId" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="getContentByPlanIdResponse">
+		<complexType>
+			<sequence>
+				<element name="content" type="tns:contentType"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="addContentRequest">
+		<complexType>
+			<sequence>
+				<element name="content" type="tns:contentType"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="addContentResponse">
+		<complexType>
+			<sequence>
+				<element name="status" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="updateContentRequest">
+		<complexType>
+			<sequence>
+				<element name="content" type="tns:contentType"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="updateContentResponse">
+		<complexType>
+			<sequence>
+				<element name="status" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="deleteContentRequest">
+		<complexType>
+			<sequence>
+				<element name="planId" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="deleteContentResponse">
+		<complexType>
+			<sequence>
+				<element name="status" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="contentType">
+		<sequence>
+			<element name="planId" type="string"/>
+			<element name="issuer" type="string"/>
+			<element name="productType" type="string"/>
+			<element name="state" type="string"/>
+			<element name="docType" type="string"/>
+			<element name="language" type="string"/>
+			<element name="content" type="string"/>
+		</sequence>
+	</complexType>
+
+</schema>
+  </wsdl:types>
+  <wsdl:message name="updateContentRequest">
+    <wsdl:part element="tns:updateContentRequest" name="updateContentRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getContentByPlanIdRequest">
+    <wsdl:part element="tns:getContentByPlanIdRequest" name="getContentByPlanIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getContentByPlanIdResponse">
+    <wsdl:part element="tns:getContentByPlanIdResponse" name="getContentByPlanIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteContentRequest">
+    <wsdl:part element="tns:deleteContentRequest" name="deleteContentRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateContentResponse">
+    <wsdl:part element="tns:updateContentResponse" name="updateContentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addContentResponse">
+    <wsdl:part element="tns:addContentResponse" name="addContentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteContentResponse">
+    <wsdl:part element="tns:deleteContentResponse" name="deleteContentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addContentRequest">
+    <wsdl:part element="tns:addContentRequest" name="addContentRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ContentPort">
+    <wsdl:operation name="updateContent">
+      <wsdl:input message="tns:updateContentRequest" name="updateContentRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:updateContentResponse" name="updateContentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getContentByPlanId">
+      <wsdl:input message="tns:getContentByPlanIdRequest" name="getContentByPlanIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getContentByPlanIdResponse" name="getContentByPlanIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteContent">
+      <wsdl:input message="tns:deleteContentRequest" name="deleteContentRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteContentResponse" name="deleteContentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addContent">
+      <wsdl:input message="tns:addContentRequest" name="addContentRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:addContentResponse" name="addContentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ContentPortSoap11" type="tns:ContentPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="updateContent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateContentRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateContentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getContentByPlanId">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getContentByPlanIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getContentByPlanIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteContent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteContentRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteContentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addContent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="addContentRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addContentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ContentPortService">
+    <wsdl:port binding="tns:ContentPortSoap11" name="ContentPortSoap11">
+      <soap:address location="http://localhost:18082/soapws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

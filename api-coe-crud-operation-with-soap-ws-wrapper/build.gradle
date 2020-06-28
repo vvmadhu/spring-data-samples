@@ -1,0 +1,92 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.7.RELEASE")
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '1.5.1.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.hcl.coe.api'
+version = '1.0.0'
+
+description = """api-coe-crud-operation-with-soap-ws-wrapper"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+configurations {
+    jaxws
+}
+
+dependencies {
+    jaxws 'com.sun.xml.ws:jaxws-tools:2.1.4'
+}
+
+task wsimport {
+    ext.destDir = file("${projectDir}/src/main/java")
+    doLast {
+        ant {
+            sourceSets.main.output.classesDir.mkdirs()
+            destDir.mkdirs()
+            taskdef(name: 'wsimport',
+                    classname: 'com.sun.tools.ws.ant.WsImport',
+                    classpath: configurations.jaxws.asPath
+            )
+            wsimport(keep: true,
+                    destdir: sourceSets.main.output.classesDir,
+                    sourcedestdir: destDir,
+                    extension: "true",
+                    verbose: "false",
+                    quiet: "false",
+                    package: "com.hcl.coe.api.cms.stub",
+                    xnocompile: "true",
+                    wsdl: 'src/main/resources/wsdl/content-ws.wsdl') {
+                xjcarg(value: "-XautoNameResolution")
+            }
+        }
+    }
+}
+
+compileJava {
+    dependsOn wsimport
+    source wsimport.destDir
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.1.RELEASE') {
+		exclude(module: 'spring-boot-starter-logging')
+    }
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter', version:'1.5.1.RELEASE') {
+		exclude(module: 'commons-logging')
+    }
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version:'2.8.6'
+    compile group: 'org.springframework', name: 'spring-oxm', version:'4.3.6.RELEASE'
+    compile(group: 'org.springframework.ws', name: 'spring-ws-core', version:'2.4.0.RELEASE') {
+		exclude(module: 'commons-logging')
+    }
+    compile group: 'commons-httpclient', name: 'commons-httpclient', version:'3.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.8.6'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.22'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.6.1'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.6.1'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.1.RELEASE') {
+		exclude(module: 'commons-logging')
+    }
+}

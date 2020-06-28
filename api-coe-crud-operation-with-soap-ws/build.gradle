@@ -1,0 +1,70 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.7.RELEASE")
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '1.5.1.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.hcl.api.coe'
+version = '1.0.0'
+
+description = """api-coe-crud-operation-with-soap-ws"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+project.ext {
+    jaxbTargetDir = file("src/main/java")
+
+}
+
+configurations {
+    xsd2java
+}
+
+dependencies {
+    xsd2java "org.codehaus.mojo:jaxb2-maven-plugin:2.3.1"
+}
+
+task xsd2java() {
+
+    doLast {
+        jaxbTargetDir.mkdirs()
+
+        ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask', classpath: configurations.xsd2java.asPath)
+        ant.jaxbTargetDir = jaxbTargetDir
+
+        ant.xjc(
+                destdir: '${jaxbTargetDir}',
+                package: 'com.hcl.coe.api.cms.model',
+                schema: 'src/main/resources/schema/content.xsd'
+        )       
+    }
+}
+compileJava.dependsOn xsd2java
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {       
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version:'1.5.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.5.1.RELEASE'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.40'
+    compile group: 'wsdl4j', name: 'wsdl4j', version:'1.6.3'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version:'2.3.0'
+    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version:'1.5.1.RELEASE'
+}

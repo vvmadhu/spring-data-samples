@@ -1,0 +1,81 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.cms.api.coe.hcl.com/content-ws"
+	targetNamespace="http://www.cms.api.coe.hcl.com/content-ws"
+	elementFormDefault="qualified">
+
+	<element name="getContentByPlanIdRequest">
+		<complexType>
+			<sequence>
+				<element name="planId" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="getContentByPlanIdResponse">
+		<complexType>
+			<sequence>
+				<element name="content" type="tns:contentType" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="addContentRequest">
+		<complexType>
+			<sequence>
+				<element name="content" type="tns:contentType" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="addContentResponse">
+		<complexType>
+			<sequence>
+				<element name="status" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="updateContentRequest">
+		<complexType>
+			<sequence>
+				<element name="content" type="tns:contentType" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="updateContentResponse">
+		<complexType>
+			<sequence>
+				<element name="status" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="deleteContentRequest">
+		<complexType>
+			<sequence>
+				<element name="planId" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="deleteContentResponse">
+		<complexType>
+			<sequence>
+				<element name="status" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="contentType">
+		<sequence>
+			<element name="planId" type="string" />
+			<element name="issuer" type="string" />
+			<element name="productType" type="string" />
+			<element name="state" type="string" />
+			<element name="docType" type="string" />
+			<element name="language" type="string" />
+			<element name="content" type="string" />
+		</sequence>
+	</complexType>
+
+</schema>

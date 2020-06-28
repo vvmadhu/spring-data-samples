@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.7.RELEASE")
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '1.5.1.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+
+group = 'com.hcl.coe.api'
+version = '1.0.0'
+
+description = """api-coe-crud-operation-with-mongodb"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+
+repositories {        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.1.RELEASE') {
+		exclude(module: 'spring-boot-starter-logging')
+    }
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter', version:'1.5.1.RELEASE') {
+		exclude(module: 'commons-logging')
+    }
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version:'1.5.1.RELEASE'
+    compile group: 'org.springframework.data', name: 'spring-data-mongodb', version:'1.10.0.RELEASE'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.22'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.6.1'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.6.1'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.1.RELEASE') {
+		exclude(module: 'commons-logging')
+    }
+}

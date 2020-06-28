@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" shutdownHook="disabled">
+
+    <Properties>
+        <Property name="LOG_PATTERN">%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}} [%-5level] 
+			[%t] [%C : %M : %F : %L] : %X : %m%n</Property> 
+    </Properties>
+
+    <Appenders>
+        <console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>        
+    </Loggers>
+
+</Configuration>

@@ -34,4 +34,21 @@ public class MyController {
         myRepository.save(myEntity);
         return new ResponseEntity<String >("OK", status);
     }
+    
+    @RequestMapping(path="downloadFile/{fileId}", method = RequestMethod.GET)
+    public ResponseEntity<Resource> downloadFile(@PathVariable Integer fileId) {
+        Optional<MyEntity> myEntity = myRepository.findById(fileId);
+
+        if (myEntity.isPresent()) {
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + myEntity.get().getFilename() + "\"");
+
+            ResponseEntity.BodyBuilder bodyBuilder = ResponseEntity.ok().contentType(MediaType.parseMediaType(myEntity.get().getFiletype()));
+            bodyBuilder.headers(httpHeaders);
+            ResponseEntity<Resource> response = bodyBuilder.body(new ByteArrayResource(myEntity.get().getFileContent()));
+            return response;
+        } else
+            return null;
+    }
+
 }
